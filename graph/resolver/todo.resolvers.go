@@ -7,7 +7,6 @@ import (
 	"context"
 	"fmt"
 	"gqlgen-todos/firestore"
-	"gqlgen-todos/graph/generated"
 	"gqlgen-todos/graph/model"
 	"math/rand"
 )
@@ -43,12 +42,3 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	}
 	return todos, err
 }
-
-// Mutation returns generated.MutationResolver implementation.
-func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
-
-// Query returns generated.QueryResolver implementation.
-func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
-
-type mutationResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }
