@@ -1,7 +1,10 @@
 package resolver
 
 import (
+	"context"
 	"gqlgen-todos/graph/generated"
+
+	"cloud.google.com/go/firestore"
 )
 
 // This file will not be regenerated automatically.
@@ -11,6 +14,15 @@ import (
 type Resolver struct {
 	// todos []*model.Todo
 	// users []*model.User
+	ctx    context.Context
+	client *firestore.Client
+}
+
+func GetResolver(ctx context.Context, client *firestore.Client) *Resolver {
+	return &Resolver{
+		ctx:    ctx,
+		client: client,
+	}
 }
 
 // Mutation returns generated.MutationResolver implementation.

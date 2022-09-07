@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gqlgen-todos/database"
 	"gqlgen-todos/graph/generated"
 	"gqlgen-todos/graph/resolver"
 	"log"
@@ -19,7 +20,9 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolver.Resolver{}}))
+	ctx, client := database.GetContextAndClient()
+	/* srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolver.Resolver{}})) */
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver.GetResolver(ctx, client)}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

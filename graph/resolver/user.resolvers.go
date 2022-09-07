@@ -6,7 +6,7 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"gqlgen-todos/firestore"
+	"gqlgen-todos/database"
 	"gqlgen-todos/graph/model"
 	"math/rand"
 )
@@ -18,7 +18,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 		Name: input.Name,
 	}
 	// r.users = append(r.users, user)
-	firestoreDao := firestore.GetFirestoreDao()
+	firestoreDao := database.GetFirestoreDao(r.ctx, r.client)
 	err := firestoreDao.AddUser(user)
 	return user, err
 }
@@ -26,7 +26,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 	// return r.users, nil
-	firestoreDao := firestore.GetFirestoreDao()
+	firestoreDao := database.GetFirestoreDao(r.ctx, r.client)
 	data, err := firestoreDao.GetUsers()
 
 	users := []*model.User{}

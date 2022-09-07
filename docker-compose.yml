@@ -9,7 +9,7 @@ services:
     working_dir: /usr/src/gqlgen-todos
     volumes:
       - ./graph:/usr/src/gqlgen-todos/graph
-      - ./firestore:/usr/src/gqlgen-todos/firestore
+      - ./database:/usr/src/gqlgen-todos/database
       - ./gqlgen.yml:/usr/src/gqlgen-todos/gqlgen.yml
       - ./server.go:/usr/src/gqlgen-todos/server.go
       - ./tools.go:/usr/src/gqlgen-todos/tools.go

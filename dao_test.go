@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gqlgen-todos/firestore"
+	"gqlgen-todos/database"
 	"gqlgen-todos/graph/model"
 	"testing"
 
@@ -14,13 +14,15 @@ func TestAddUser(t *testing.T) {
 		ID:   "xxx",
 		Name: "yyy",
 	}
-	firestoreDao := firestore.GetFirestoreDao()
+	ctx, client := database.GetContextAndClient()
+	firestoreDao := database.GetFirestoreDao(ctx, client)
 	err := firestoreDao.AddUser(user)
 	assert.Nil(t, err)
 }
 
 func TestGetUser(t *testing.T) {
-	firestoreDao := firestore.GetFirestoreDao()
+	ctx, client := database.GetContextAndClient()
+	firestoreDao := database.GetFirestoreDao(ctx, client)
 	data, _ := firestoreDao.GetUsers()
 	for _, v := range data {
 		fmt.Println(v)

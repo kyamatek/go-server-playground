@@ -1,4 +1,4 @@
-package firestore
+package database
 
 import (
 	"context"
@@ -14,9 +14,11 @@ type FirestoreDao struct {
 	client *firestore.Client
 }
 
-func GetFirestoreDao() (firestoreDao *FirestoreDao) {
-	firestoreDao = &FirestoreDao{}
-	firestoreDao.ctx, firestoreDao.client = getContextAndClient()
+func GetFirestoreDao(ctx context.Context, client *firestore.Client) (firestoreDao *FirestoreDao) {
+	firestoreDao = &FirestoreDao{
+		ctx:    ctx,
+		client: client,
+	}
 	return firestoreDao
 }
 

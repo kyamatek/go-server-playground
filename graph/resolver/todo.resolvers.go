@@ -6,7 +6,7 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"gqlgen-todos/firestore"
+	"gqlgen-todos/database"
 	"gqlgen-todos/graph/model"
 	"math/rand"
 )
@@ -19,7 +19,7 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 		UserID: input.UserID,
 	}
 	// r.todos = append(r.todos, todo)
-	firestoreDao := firestore.GetFirestoreDao()
+	firestoreDao := database.GetFirestoreDao(r.ctx, r.client)
 	err := firestoreDao.AddTodo(todo)
 	return todo, err
 }
@@ -27,7 +27,7 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 // Todos is the resolver for the todos field.
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	// return r.todos, nil
-	firestoreDao := firestore.GetFirestoreDao()
+	firestoreDao := database.GetFirestoreDao(r.ctx, r.client)
 	data, err := firestoreDao.GetTodos()
 
 	todos := []*model.Todo{}

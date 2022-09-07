@@ -1,4 +1,4 @@
-package firestore
+package database
 
 import (
 	"context"
@@ -11,15 +11,15 @@ import (
 )
 
 // func main() {
-// 	ctx, client := getContextAndClient()
+// 	ctx, client := GetContextAndClient()
 // 	add(ctx, client)
 // 	defer client.Close()
 // }
 
-func getContextAndClient() (context.Context, *firestore.Client) {
+func GetContextAndClient() (context.Context, *firestore.Client) {
 
 	ctx := context.Background()
-	opt := option.WithCredentialsFile("firestore/secret.json")
+	opt := option.WithCredentialsFile("database/secret.json")
 	config := &firebase.Config{}
 	app, err := firebase.NewApp(ctx, config, opt)
 	if err != nil {
