@@ -65,14 +65,16 @@ mutation {
 
 ## schema, resolver の生成
 1. graph/schema/[name].graphqls にスキーマかく
-2. `go run github.com/99designs/gqlgen generate`
-3. graph/model/models_gen.go に関連するコードが生成される
-4. 生成されたコードを [name].go にうつす(今の所NewUserみたいな生成時に使うstructだけmodels_gen.goにおきっぱ)
-5. gqlgen.yml にモデル自動生成をしないようにするため下のように記述
+1. `go run github.com/99designs/gqlgen generate`
+1. graph/resolver/[name].resolvers.go の後ろの方のMutaionとかのメソッドを消す
+1. graph/model/models_gen.go に関連するコードが生成される
+1. 生成されたコードを [name].go にうつす(今の所NewUserみたいな生成時に使うstructだけmodels_gen.goにおきっぱ)
+1. gqlgen.yml にモデル自動生成をしないようにするため下のように記述
 ```
 models:
   User:
     model: gqlgen-todos/graph/model.User
 ```
-6. `go run github.com/99designs/gqlgen generate`
-7. resolver/[name].resolvers.go に中身を書く
+7. `go run github.com/99designs/gqlgen generate`
+1. graph/resolver/[name].resolvers.go の後ろの方のMutaionとかのメソッドを消す
+1. resolver/[name].resolvers.go に中身を書く
