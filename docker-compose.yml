@@ -1,0 +1,16 @@
+version: '3'
+services:
+  graphql:
+    build: .
+    container_name: graphql-server
+    ports:
+      - 8080:8080
+    tty: true
+    working_dir: /usr/src/gqlgen-todos
+    volumes:
+      - ./graph:/usr/src/gqlgen-todos/graph
+      - ./firestore:/usr/src/gqlgen-todos/firestore
+      - ./gqlgen.yml:/usr/src/gqlgen-todos/gqlgen.yml
+      - ./server.go:/usr/src/gqlgen-todos/server.go
+      - ./tools.go:/usr/src/gqlgen-todos/tools.go
+    command: go run server.go
